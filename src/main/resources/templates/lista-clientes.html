@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+<h3 th:text="${titulo}"></h3>
+<br>
+
+
+<p th:if="${clientes.isEmpty()}">La lista de clientes está vacia</p>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Numero Telefónico</th>
+			<th>Email</th>
+		<tr>
+	</thead>
+	<tbody>
+		<tr th:each="cliente: ${clientes}"></tr>
+		<tr th:each="cliente: ${clientes}">
+			<td th:text="${cliente.getId_cliente()}"></td>
+			<td th:text="${cliente.getNombre()}"></td>
+			<td th:text="${cliente.getApellido()}"></td>
+			<td th:text="${cliente.getNumeroTelefono()}"></td>
+			<td th:text="${cliente.getEmail()}"></td>
+		</tr>
+	</tbody>	
+	
+</table>
+
+</body>
+</html>
