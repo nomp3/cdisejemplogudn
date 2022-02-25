@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cdisejemplo.springboot.app.errors.DataBaseBancoException;
 import com.cdisejemplo.springboot.app.models.entity.Cliente;
 
 @Repository
@@ -26,11 +28,20 @@ public class ClienteDaoImpl implements IClienteDao {
 	
 	@Override
 	@Transactional
-	public void save(Cliente cliente) {
+	public void save(Cliente cliente) throws DataBaseBancoException{
 		if (cliente.getId_cliente() != null && cliente.getId_cliente() > 0) {
-			em.merge(cliente);
+			try {
+				em.merge(cliente);
+			}catch (DataException e){
+				throw new DataBaseBancoException();
+			}			
 		}else {
-			em.persist(cliente);
+			try {
+				em.persist(cliente);
+			}catch (DataException e){
+				throw new DataBaseBancoException();
+			}	
+			
 		}
 	}
 	

@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cdisejemplo.springboot.app.errors.DataBaseBancoException;
 import com.cdisejemplo.springboot.app.models.entity.Banco;
 
 @Repository
@@ -25,12 +27,21 @@ public class BancoDaoImpl implements IBancoDao {
 	}
 
 	@Override
-	public void save(Banco banco) {
+	@Transactional
+	public void save(Banco banco) throws DataBaseBancoException {
 		// TODO Auto-generated method stub
 		if(banco.getId_banco() != null && banco.getId_banco() > 0) {
-			em.merge(banco);
+			try {
+				em.merge(banco);
+			}catch (DataException e){
+				throw new DataBaseBancoException();
+			}	
 		}else {
-			em.persist(banco);
+			try {
+				em.persist(banco);
+			}catch (DataException e){
+				throw new DataBaseBancoException();
+			}
 		} 
 	
 
@@ -43,6 +54,7 @@ public class BancoDaoImpl implements IBancoDao {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id_banco) {
 		// TODO Auto-generated method stub
 		em.remove(findOne(id_banco));

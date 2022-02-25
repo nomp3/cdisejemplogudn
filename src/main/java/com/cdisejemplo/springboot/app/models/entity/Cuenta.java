@@ -48,7 +48,7 @@ public class Cuenta implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date diaCreacion;
 
-	@JoinColumn(name ="id_cliente", referencedColumnName = "id_cliente", nullable = false )
+	@JoinColumn(name ="cliente", referencedColumnName = "id_cliente", nullable = false )
 	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	private Cliente cliente ;
 
@@ -94,6 +94,14 @@ public class Cuenta implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 

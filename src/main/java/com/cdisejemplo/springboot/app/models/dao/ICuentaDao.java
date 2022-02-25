@@ -12,6 +12,8 @@ public interface ICuentaDao {
 
 	public Cuenta findOne(Long id_cuenta);
 
-	void delete(Long id_cuenta);
+	public void delete(Long id_cuenta);
+
+	public List<Cuenta> findByNumeroTelefono(String term);
 
 }

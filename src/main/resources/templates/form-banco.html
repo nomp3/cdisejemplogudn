@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand"  th:text="${titulo}"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" th:href="@{/index}">Home</a>
+        <a class="nav-link"  th:href="@{/lista-cuentas}">Volver</a>
+     
+       
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<title th:text="${titulo}"></title>
+</head>
+<body>
+
+	
+	<br>
+	
+	<tbody>
+		<p th:if="${result}" th:text="${mensaje}"></p>
+		
+		<div>
+			<form th:action="@{/form-banco}" th:object="${banco}"
+			method="post">
+			<table>
+				<tr>
+					<td>Nombre del banco</td>
+					<td><input class="form-control me-auto" type="text" th:field="*{nombre}" required></td>
+					<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+				</tr>
+				<tr>
+					<td>Ubicación</td>
+					<td><input class="form-control me-auto" type="text" th:field="*{ubicacion}" required></td>
+					<div th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></div>
+				</tr>				
+			</table>
+			
+			
+				<br><input type="submit" value="Registrar banco" class="btn btn-secondary" role="button" data-bs-toggle="button" />
+				<br>
+				<br>	
+			</form>
+	
+	
+	
+		</div>
+	</tbody>
+	
+</body>
+</html>
